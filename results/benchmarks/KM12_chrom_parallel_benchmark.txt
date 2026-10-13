@@ -1,0 +1,62 @@
+KM12 CHROMOSOME-PARALLEL REMOTE EXTRACTION
+========================================================================
+Model: ACH-000969
+SequencingID: CDS-vHArJs
+Intervals: 66362
+Workers: 4
+
+Downloading BAM index once...
+Local remote-index copy: 8.9 MiB
+
+Chromosome jobs: 33
+
+[ 1/33] chr1_KI270765v1_alt loci=    1  BAM=   0.1 MiB  time=  0.02 min
+[ 2/33] chr1_KI270706v1_random loci=    1  BAM=   0.1 MiB  time=  0.02 min
+[ 3/33] chr4   loci= 5458  BAM=  10.3 MiB  time= 11.18 min
+[ 4/33] chr4_GL000008v2_random loci=    3  BAM=   0.1 MiB  time=  0.04 min
+[ 5/33] chr3   loci= 4573  BAM=   8.6 MiB  time= 11.58 min
+[ 6/33] chr1   loci= 4445  BAM=   8.3 MiB  time= 12.99 min
+[ 7/33] chr2   loci= 5695  BAM=  10.9 MiB  time= 13.99 min
+[ 8/33] chr7_KI270803v1_alt loci=    2  BAM=   0.1 MiB  time=  0.03 min
+[ 9/33] chr6   loci= 3963  BAM=   6.9 MiB  time=  8.83 min
+[10/33] chr5   loci= 4480  BAM=   7.6 MiB  time=  9.55 min
+[11/33] chr7   loci= 3583  BAM=   6.9 MiB  time=  9.65 min
+[12/33] chr8   loci= 3491  BAM=   7.5 MiB  time=  9.73 min
+[13/33] chr9   loci= 2457  BAM=   4.6 MiB  time=  7.00 min
+[14/33] chr10  loci= 2821  BAM=   5.4 MiB  time=  7.23 min
+[15/33] chr11  loci= 2796  BAM=   5.2 MiB  time=  6.99 min
+[16/33] chr14_GL000009v2_random loci=    1  BAM=   0.1 MiB  time=  0.02 min
+[17/33] chr12  loci= 2972  BAM=   6.8 MiB  time=  8.82 min
+[18/33] chr15_KI270850v1_alt loci=    2  BAM=   0.1 MiB  time=  0.03 min
+[19/33] chr13  loci= 2791  BAM=   5.1 MiB  time=  5.37 min
+[20/33] chr14  loci= 1944  BAM=   3.8 MiB  time=  5.08 min
+[21/33] chr17_KI270909v1_alt loci=    4  BAM=   0.1 MiB  time=  0.02 min
+[22/33] chr15  loci= 1591  BAM=   3.1 MiB  time=  4.65 min
+[23/33] chr18  loci= 1873  BAM=   2.4 MiB  time=  2.74 min
+[24/33] chr16  loci= 1551  BAM=   3.0 MiB  time=  4.42 min
+[25/33] chr17  loci= 1374  BAM=   2.8 MiB  time=  4.29 min
+[26/33] chr19  loci=  983  BAM=   2.0 MiB  time=  3.21 min
+[27/33] chr22_KI270879v1_alt loci=    2  BAM=   0.1 MiB  time=  0.03 min
+[28/33] chrUn_KI270742v1 loci=    3  BAM=   0.1 MiB  time=  0.04 min
+[29/33] chr21  loci=  971  BAM=   1.5 MiB  time=  1.22 min
+[30/33] chrY   loci=  864  BAM=   0.2 MiB  time=  0.28 min
+[31/33] chr22  loci=  530  BAM=   2.0 MiB  time=  1.71 min
+[32/33] chr20  loci= 1051  BAM=   2.6 MiB  time=  3.61 min
+[33/33] chrX   loci= 4086  BAM=   4.4 MiB  time=  3.92 min
+
+REGRESSION RESULT
+========================================================================
+Rows: 66362
+Coordinates identical: True
+Coverage identical: True
+Maximum absolute coverage difference: 0
+
+PERFORMANCE
+========================================================================
+Workers:          4
+Wall time:        41.50 min
+Total subset BAM: 123.1 MiB
+Previous serial multi-region benchmark: 112.00 min
+Wall-time speedup: 2.70x
+
+PASS: chromosome-parallel extraction exactly reproduces KM12.

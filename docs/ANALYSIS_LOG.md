@@ -174,6 +174,43 @@ The broken-TA FPBM reconstruction pipeline is sufficiently
 validated in KM12 to justify scaling, pending access-performance
 optimization.
 
+### Current-WGS extraction performance benchmark
+
+The KM12 current-WGS extraction was independently reproduced using a
+chromosome-parallel remote-access strategy.
+
+Canonical query:
+
+- 66,362 hg38 TA intervals
+- 5,377 broken-TA loci
+- 60,985 non-broken TA loci
+- public KM12 WGS: ACH-000969 / CDS-vHArJs
+
+Serial multi-region extraction:
+
+- remote fetch: 111.92 minutes
+- local subset BAM: 119.9 MiB
+- total runtime: 112.00 minutes
+
+Four-worker chromosome-parallel extraction:
+
+- wall time: 41.50 minutes
+- total subset BAM: 123.1 MiB
+- speedup: 2.70x
+
+Regression against the original KM12 coverage result:
+
+- rows: 66,362
+- coordinates identical: yes
+- coverage identical: yes
+- maximum absolute coverage difference: 0
+
+Conclusion:
+
+Chromosome-parallel indexed access reproduces the canonical KM12 coverage
+exactly while substantially reducing wall time. This method is suitable for
+promotion into the reusable current-WGS extraction pipeline.
+
 ### Executable provenance
 
 The published-FPBM analytical branch is reproduced by:
