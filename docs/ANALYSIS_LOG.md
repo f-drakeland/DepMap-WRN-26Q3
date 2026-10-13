@@ -222,3 +222,45 @@ The published-FPBM analytical branch is reproduced by:
 - `scripts/test_fpbm_loocv_value.py`
 
 All scripts reproduce the exploratory numerical results recorded above.
+
+### HCT116 current-WGS broken-TA reconstruction
+
+Model: ACH-000971
+Cell line: HCT 116
+SequencingID: CDS-ASprHn
+
+Canonical input:
+
+- 66,362 hg38 TA intervals
+- BED SHA256: e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b
+- 5,377 broken-TA loci
+- 60,985 non-broken TA loci
+
+Result:
+
+- Published FPBM: 6.4994
+- Current-WGS broken-TA mean FPBM: 7.0951
+- Current-WGS non-broken mean FPBM: 15.7719
+- Current / published ratio: 1.092
+
+Coverage output SHA256:
+
+a11b32fd1c74440fb9fa40e561c6214fc4047b28261b40ed21d902d2e5a8c3ce
+
+Execution note:
+
+The first extraction attempt encountered a transient remote HTTP/libcurl
+failure while fetching chr1. Thirty-two of 33 chromosome coverage files had
+completed successfully. The resumable extractor retained those completed
+results; the second invocation resumed 32 chromosomes and refetched only chr1.
+The resumed invocation completed in 11.48 minutes. Full wall time across both
+attempts was not preserved and is therefore not reported.
+
+Interpretation:
+
+HCT116 independently reproduces the published broken-TA phenotype direction
+using current public WGS. Its current-WGS FPBM is 9.2% higher than the
+published value. Together with KM12, this preserves the published ordering
+(KM12 lower than HCT116), but two reconstructed models are insufficient to
+claim a systematic calibration shift.
+
