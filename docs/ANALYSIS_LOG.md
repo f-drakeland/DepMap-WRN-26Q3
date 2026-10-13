@@ -263,4 +263,3 @@ using current public WGS. Its current-WGS FPBM is 9.2% higher than the
 published value. Together with KM12, this preserves the published ordering
 (KM12 lower than HCT116), but two reconstructed models are insufficient to
 claim a systematic calibration shift.
-

@@ -31,6 +31,9 @@ EXPECTED_INTERVALS = 66362
 EXPECTED_BROKEN = 5377
 EXPECTED_NONBROKEN = 60985
 
+DEFAULT_FETCH_ATTEMPTS = 3
+DEFAULT_RETRY_DELAY_SECONDS = 5.0
+
 
 def sha256(path):
     h = hashlib.sha256()
@@ -84,6 +87,26 @@ def parse_args():
         help="Replace an existing completed result",
     )
 
+    parser.add_argument(
+        "--fetch-attempts",
+        type=int,
+        default=DEFAULT_FETCH_ATTEMPTS,
+        help=(
+            "Maximum remote fetch attempts per chromosome "
+            "(default: 3)"
+        ),
+    )
+
+    parser.add_argument(
+        "--retry-delay",
+        type=float,
+        default=DEFAULT_RETRY_DELAY_SECONDS,
+        help=(
+            "Base retry delay in seconds; backoff increases "
+            "with each failed attempt (default: 5)"
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -91,6 +114,12 @@ args = parse_args()
 
 if args.workers < 1:
     raise RuntimeError("--workers must be at least 1")
+
+if args.fetch_attempts < 1:
+    raise RuntimeError("--fetch-attempts must be at least 1")
+
+if args.retry_delay < 0:
+    raise RuntimeError("--retry-delay cannot be negative")
 
 model_id = args.model_id
 
@@ -305,6 +334,7 @@ def process_job(job):
             "loci": job["loci"],
             "seconds": 0.0,
             "resumed": True,
+            "attempts": 0,
         }
 
     # Remove partial outputs from interrupted work.
@@ -319,31 +349,64 @@ def process_job(job):
     )
 
     started = time.perf_counter()
+    attempt = 0
 
-    run(
-        [
-            "samtools",
-            "view",
-            "-M",
-            "-L",
-            job["bed"],
-            "-b",
-            "-o",
-            job["bam"],
-            "-X",
-            bam_url,
-            remote_bai,
-        ]
-    )
+    while True:
+        attempt += 1
 
-    run(
-        [
-            "samtools",
-            "quickcheck",
-            "-v",
-            job["bam"],
-        ]
-    )
+        # A failed remote read can leave behind a partial BAM.
+        job["bam"].unlink(
+            missing_ok=True
+        )
+        job["bai"].unlink(
+            missing_ok=True
+        )
+
+        try:
+            run(
+                [
+                    "samtools",
+                    "view",
+                    "-M",
+                    "-L",
+                    job["bed"],
+                    "-b",
+                    "-o",
+                    job["bam"],
+                    "-X",
+                    bam_url,
+                    remote_bai,
+                ]
+            )
+
+            run(
+                [
+                    "samtools",
+                    "quickcheck",
+                    "-v",
+                    job["bam"],
+                ]
+            )
+
+            break
+
+        except subprocess.CalledProcessError:
+            if attempt >= args.fetch_attempts:
+                raise
+
+            delay = (
+                args.retry_delay
+                * attempt
+            )
+
+            print(
+                f"[RETRY] {chrom}: remote fetch failed "
+                f"on attempt {attempt}/{args.fetch_attempts}; "
+                f"retrying in {delay:.0f}s",
+                flush=True,
+            )
+
+            time.sleep(delay)
 
     run(
         [
@@ -388,6 +451,7 @@ def process_job(job):
         "loci": job["loci"],
         "seconds": elapsed,
         "resumed": False,
+        "attempts": attempt,
     }
 
 
@@ -444,6 +508,16 @@ with ThreadPoolExecutor(
 wall_seconds = (
     time.perf_counter()
     - overall_started
+)
+
+resumed_job_count = sum(
+    int(result["resumed"])
+    for result in completed
+)
+
+fetch_retry_count = sum(
+    max(0, result["attempts"] - 1)
+    for result in completed
 )
 
 
@@ -626,7 +700,7 @@ ratio = (
 # ------------------------------------------------------------
 
 result = {
-    "schema_version": 1,
+    "schema_version": 2,
     "model_id": model_id,
     "cell_line_name": model["CellLineName"],
     "lineage": model["Lineage"],
@@ -647,7 +721,12 @@ result = {
     "coverage_file": str(final_bedcov),
     "coverage_sha256": coverage_sha256,
     "workers": args.workers,
+    "fetch_attempt_limit": args.fetch_attempts,
+    "retry_delay_seconds": args.retry_delay,
+    "fetch_retry_count": fetch_retry_count,
+    "resumed_job_count": resumed_job_count,
     "wall_seconds": wall_seconds,
+    "wall_time_scope": "current invocation only",
     "method": (
         "samtools view -M chromosome-parallel remote BAM access; "
         "local samtools bedcov; published FPB/FPBM normalization"
@@ -693,6 +772,12 @@ print(
 print()
 print(
     f"Wall time:                     {wall_seconds/60:.2f} min"
+)
+print(
+    f"Resumed chromosome jobs:       {resumed_job_count}"
+)
+print(
+    f"Remote fetch retries:          {fetch_retry_count}"
 )
 print(
     f"Coverage SHA256:               {coverage_sha256}"
