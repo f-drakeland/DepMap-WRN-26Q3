@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Original downloaded datasets
+data/source/*
+!data/source/README.md
+
+# External reference assets
+data/reference/*.chain.gz
+
+# Reproducible generated coordinate/data files
+data/derived/**/*.bed
+
+# Large/raw WGS coverage outputs
+*.bedcov.tsv
+
+# External binaries
+tools/liftOver
+
+# Runtime/cache
+.cache/
+*.tmp
+
+# Personal working notes
+docs/DepMap Cancer Cell Line Cheat Sheet.txt
