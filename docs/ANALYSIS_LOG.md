@@ -263,3 +263,40 @@ using current public WGS. Its current-WGS FPBM is 9.2% higher than the
 published value. Together with KM12, this preserves the published ordering
 (KM12 lower than HCT116), but two reconstructed models are insufficient to
 claim a systematic calibration shift.
+
+### SK-MEL-2 current-WGS broken-TA reconstruction
+
+Model: ACH-001190
+Cell line: SK-MEL-2
+SequencingID: CDS-N7cVn2
+
+Canonical input:
+
+- 66,362 hg38 TA intervals
+- BED SHA256: e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b
+- 5,377 broken-TA loci
+- 60,985 non-broken TA loci
+
+Result:
+
+- Published FPBM: 8.0274
+- Current-WGS broken-TA mean FPBM: 8.6388
+- Current-WGS non-broken mean FPBM: 15.6358
+- Current / published ratio: 1.076
+- Wall time: 121.20 minutes
+- Remote fetch retries: 0
+- Resumed chromosome jobs: 0
+
+Coverage output SHA256:
+
+f51a7bb99fb8830959249085a842d7f490ba44b9e184654b3f120b17f2948937
+
+Interpretation:
+
+SK-MEL-2 provides a third current-WGS reconstruction and extends validation
+to the high-published-FPBM / relatively weak-WRN-dependency end of the cohort.
+The published FPBM ordering of KM12, HCT116, and SK-MEL-2 is preserved in the
+current WGS reconstructions. All three current measurements are modestly
+higher than their published values, but three deliberately selected models
+are insufficient for an inferential correlation or a claim of systematic
+calibration shift.
