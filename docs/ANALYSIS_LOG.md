@@ -4,31 +4,75 @@
 
 Research workflow reconstructed from exploratory analysis.
 
-### Published repeat-locus reproducibility
+### Historical exploratory repeat analyses — implementation not retained
 
-2,800 loci tested across discovery and validation models.
+Two early exploratory repeat analyses predated the repository's executable
+provenance discipline. Their numerical outputs were retained, but the exact
+analysis code was not. A later forensic reconstruction recovered and
+independently validated the upstream 49-model repeat dataset, but could not
+establish the exact downstream procedures that generated these statistics.
 
+These results are retained for historical context only and are not treated as
+canonical reproducible project findings.
+
+#### Repeat-locus discovery / validation
+
+Historical output:
+
+- 2,800 loci
 - Discovery-validation Pearson: 0.080
 - Discovery-validation Spearman: 0.078
 - Same correlation direction: 44.4%
 
-Conclusion:
+Historical interpretation:
+
 Individual repeat-locus correlations did not reproduce.
 
-### Generic repeat burden beyond MSI
+Exact locus-level implementation: **not recovered**.
+
+#### Generic repeat burden beyond MSI
+
+Historical output:
 
 Mean repeat shift:
+
 - Pearson: -0.209
 - Spearman: -0.157
 - Permutation p: 0.2152
 
 Fraction shifted >=2:
+
 - Pearson: -0.164
 - Spearman: -0.160
 - Permutation p: 0.3132
 
-Conclusion:
+Historical interpretation:
+
 Generic repeat burden did not explain WRN dependency beyond MSI.
+
+Exact residualization/permutation implementation: **not recovered**.
+
+#### Recovered upstream repeat reconstruction
+
+The upstream dataset used by the exploratory work was independently
+reconstructed and checksum-validated:
+
+- 49 MSI models with WGS repeat profiles
+- 16 Bowel, 19 Uterus, and 14 Lymphoid models
+- repeat disruption = abs(observed repeat count - reference repeat count)
+- generic per-model burden = mean disruption across all 2,828 repeat loci,
+  ignoring missing calls
+- historical within-lineage burden/WRN correlations reproduced:
+  - Bowel: +0.433
+  - Uterus: +0.397
+  - Lymphoid: -0.259
+- historical MSI checksums reproduced:
+  - repeat burden vs MSI: Pearson 0.946, Spearman 0.990
+  - MSI vs WRN dependency: Pearson 0.621, Spearman 0.724
+
+The reconstructed upstream cohort is reproducible via
+`scripts/build_repeat_wgs_cohort.py` and verified by
+`scripts/validate_repeat_wgs_reconstruction.py`.
 
 ### Published broken-TA phenotype
 
