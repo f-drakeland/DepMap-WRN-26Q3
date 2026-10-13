@@ -129,3 +129,15 @@ Conclusion:
 The broken-TA FPBM reconstruction pipeline is sufficiently
 validated in KM12 to justify scaling, pending access-performance
 optimization.
+
+### Executable provenance
+
+The published-FPBM analytical branch is reproduced by:
+
+- `scripts/reproduce_published_fpbm_wrn.py`
+- `scripts/compare_published_fpbm_to_26q3.py`
+- `scripts/test_fpbm_beyond_msi.py`
+- `scripts/test_fpbm_beyond_msi_robustness.py`
+- `scripts/test_fpbm_loocv_value.py`
+
+All scripts reproduce the exploratory numerical results recorded above.
