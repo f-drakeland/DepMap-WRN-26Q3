@@ -3,8 +3,10 @@ from pathlib import Path
 import argparse
 import hashlib
 import json
+import platform
 import shutil
 import subprocess
+import sys
 import time
 
 import numpy as np
@@ -26,6 +28,9 @@ CACHE_ROOT = Path(
 RESULT_ROOT = Path(
     "results/current-wgs"
 )
+
+EXTRACTOR = Path(__file__)
+REQUIREMENTS = Path("requirements.txt")
 
 EXPECTED_INTERVALS = 66362
 EXPECTED_BROKEN = 5377
@@ -233,6 +238,23 @@ if int(nonbroken_mask.sum()) != EXPECTED_NONBROKEN:
     )
 
 bed_sha256 = sha256(BED)
+manifest_sha256 = sha256(MANIFEST)
+extractor_sha256 = sha256(EXTRACTOR)
+requirements_sha256 = sha256(REQUIREMENTS)
+
+git_commit = subprocess.run(
+    ["git", "rev-parse", "HEAD"],
+    capture_output=True,
+    text=True,
+    check=True,
+).stdout.strip()
+
+samtools_version = subprocess.run(
+    ["samtools", "--version"],
+    capture_output=True,
+    text=True,
+    check=True,
+).stdout.splitlines()[0]
 
 
 # ------------------------------------------------------------
@@ -468,6 +490,8 @@ print("SequencingID: ", seq_id)
 print("Workers:      ", args.workers)
 print("Intervals:    ", len(bed))
 print("BED SHA256:   ", bed_sha256)
+print("Git commit:   ", git_commit)
+print("Samtools:     ", samtools_version)
 print()
 
 overall_started = time.perf_counter()
@@ -700,7 +724,7 @@ ratio = (
 # ------------------------------------------------------------
 
 result = {
-    "schema_version": 2,
+    "schema_version": 3,
     "model_id": model_id,
     "cell_line_name": model["CellLineName"],
     "lineage": model["Lineage"],
@@ -720,6 +744,14 @@ result = {
     "canonical_bed_sha256": bed_sha256,
     "coverage_file": str(final_bedcov),
     "coverage_sha256": coverage_sha256,
+    "extractor_path": str(EXTRACTOR),
+    "extractor_sha256": extractor_sha256,
+    "extractor_git_commit": git_commit,
+    "manifest_sha256": manifest_sha256,
+    "requirements_sha256": requirements_sha256,
+    "python_version": sys.version,
+    "platform": platform.platform(),
+    "samtools_version": samtools_version,
     "workers": args.workers,
     "fetch_attempt_limit": args.fetch_attempts,
     "retry_delay_seconds": args.retry_delay,
