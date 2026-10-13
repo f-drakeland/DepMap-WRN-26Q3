@@ -28,3 +28,7 @@ tools/liftOver
 
 # Personal working notes
 docs/DepMap Cancer Cell Line Cheat Sheet.txt
+
+# Local indexed-alignment working files
+*.bam
+*.bai

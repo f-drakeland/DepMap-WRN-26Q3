@@ -1,0 +1,19 @@
+KM12 multi-region remote extraction benchmark
+Model: ACH-000969
+SequencingID: CDS-vHArJs
+Intervals: 66362
+BED SHA256: e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b
+
+Remote multi-region fetch: 111.92 min
+Subset BAM size: 119.9 MiB
+Local BAM indexing: 0.01 min
+Local bedcov: 0.08 min
+Total: 112.00 min
+
+Regression against existing KM12 coverage:
+Rows: 66362
+Coordinates identical: True
+Coverage identical: True
+Maximum absolute coverage difference: 0
+
+PASS: optimized extraction exactly reproduces KM12.
