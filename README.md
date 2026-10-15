@@ -221,6 +221,15 @@ External command-line requirements:
 - `samtools`
 - UCSC `liftOver`
 
+## License
+
+Original code, project documentation, and original figures in this repository
+are released under the MIT License. See `LICENSE`.
+
+Third-party datasets, publications, reference assets, source workbooks, and
+other external inputs remain subject to their respective licenses, copyrights,
+and terms of use.
+
 ## Limitations
 
 This is a 26-model MSI comparison, not an independent prospective validation
