@@ -1,0 +1,87 @@
+CURRENT-WGS FPBM CALIBRATION AUDIT
+========================================================================
+
+ALL_26
+------------------------------------------------------------------------
+Models: 26
+Published/current Pearson:  0.968521
+Published/current Spearman: 0.973333
+Linear fit: Current = -0.068910 + 1.101744 * Published
+R^2: 0.938033
+Through-origin scale: 1.091539
+Ratio mean:   1.091226
+Ratio median: 1.087604
+Ratio SD:     0.029185
+Ratio MAD:    0.007885
+Ratio range:  1.066891 to 1.225260
+Within +/-2% of median scale: 25/26
+Within +/-3% of median scale: 25/26
+Ratio vs published FPBM Pearson: 0.066428
+Ratio vs published FPBM Spearman: -0.094701
+
+WITHOUT_JHUEM1
+------------------------------------------------------------------------
+Models: 25
+Published/current Pearson:  0.996253
+Published/current Spearman: 0.986923
+Linear fit: Current = 0.060637 + 1.076703 * Published
+R^2: 0.992521
+Through-origin scale: 1.085697
+Ratio mean:   1.085865
+Ratio median: 1.086431
+Ratio SD:     0.010431
+Ratio MAD:    0.008708
+Ratio range:  1.066891 to 1.109085
+Within +/-2% of median scale: 24/25
+Within +/-3% of median scale: 25/25
+Ratio vs published FPBM Pearson: -0.059922
+Ratio vs published FPBM Spearman: -0.157692
+
+JHUEM-1
+------------------------------------------------------------------------
+Ratio: 1.225260
+Robust ratio z: 11.774567
+Percent from cohort median scale: +12.66%
+BAM size: 74.98 GiB
+Fetch retries: 0.0
+Resumed jobs: 0.0
+Public hg38 WGS candidates: 1
+Selected SequencingID: CDS-YSRYLi
+Selected ProfileID: PR-piT3XW
+
+Other uterus models
+------------------------------------------------------------------------
+Peers: 5
+Median ratio: 1.090990
+Range: 1.077331 to 1.109085
+
+WGS candidate selection
+------------------------------------------------------------------------
+Models with one public hg38 WGS candidate: 26/26
+Models with >1 public hg38 WGS candidate: 0/26
+
+JHUEM-1 candidate rows:
+  CDS-YSRYLi profile=PR-piT3XW size=74.98 GiB
+
+BAM-size relationship to calibration ratio
+------------------------------------------------------------------------
+All 26 Pearson:  -0.152764 (p=0.456255)
+All 26 Spearman: -0.082393 (p=0.689051)
+Without JHUEM Pearson:  -0.058626 (p=0.780735)
+Without JHUEM Spearman: -0.053846 (p=0.798235)
+
+Coordinate context
+------------------------------------------------------------------------
+Original hg19 loci: 66644
+Mapped hg38 loci:   66362
+Coordinate retention: 99.5769%
+Coordinate retention is descriptive only; it does not establish the cause of calibration shift.
+
+Result provenance
+------------------------------------------------------------------------
+Known canonical BED SHA values: 1
+  e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b
+Known extractor SHA values: 1
+  86654f9cdf4fb7cc024e2cd876a25d2ee739924cb1476b4508ae84ae1b5646fa
+
+Diagnostics: results/current-wgs/calibration_audit.csv
