@@ -1,0 +1,49 @@
+CURRENT-WGS FPBM VS CURRENT WRN DEPENDENCY
+========================================================================
+Models: 26
+Input: results/current-wgs/cohort_summary.csv
+
+Interpretation of direction
+------------------------------------------------------------------------
+Lower FPBM = greater broken-TA coverage loss.
+More-negative WRN GeneEffect = stronger WRN dependency.
+Therefore a positive correlation is the expected direction.
+
+Reconstructed current-WGS FPBM vs current WRN
+------------------------------------------------------------------------
+Pearson r:  0.642952   p=0.00039635
+Spearman r: 0.621197   p=0.000707123
+
+Published FPBM vs the same current WRN values
+------------------------------------------------------------------------
+Pearson r:  0.650992   p=0.000316406
+Spearman r: 0.686838   p=0.000106522
+
+Descriptive coefficient difference
+------------------------------------------------------------------------
+Current minus published Pearson: -0.008039
+Current minus published Spearman: -0.065641
+These coefficient differences are descriptive only; no test of dependent correlations is claimed here.
+
+Current FPBM linear fit to WRN
+------------------------------------------------------------------------
+WRN GeneEffect = -6.453061 + 0.722995 * Current FPBM
+R^2: 0.413388
+
+Largest WRN residual from current-FPBM fit
+------------------------------------------------------------------------
+ACH-000943 RKO
+Current FPBM: 7.473723
+Observed WRN: -2.723186
+Residual:     -1.673592
+
+Leave-one-out sensitivity: current FPBM vs WRN
+------------------------------------------------------------------------
+Pearson range:  0.537878 to 0.702170
+Lowest Pearson after removing: ACH-000969 KM12
+Highest Pearson after removing: ACH-000963 CCK-81
+Spearman range: 0.573846 to 0.696923
+Lowest Spearman after removing: ACH-000969 KM12
+Highest Spearman after removing: ACH-000963 CCK-81
+
+Diagnostics: results/current-wgs/wrn_association_diagnostics.csv
