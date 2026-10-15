@@ -41,6 +41,17 @@ The current evidence therefore supports FPBM as a reproducible and
 mechanistically informative phenotype, not as a demonstrated robust predictor
 beyond MSI.
 
+## Published basis
+
+This project reconstructs and extends the Figure 4 broken-(TA)n phenotype from:
+
+Niek van Wietmarschen et al., “Repeat expansions confer WRN dependence in
+microsatellite-unstable cancers,” *Nature* 586, 292–298 (2020).
+DOI: `10.1038/s41586-020-2769-8`.
+
+The published source workbook is treated as an external third-party input and
+is not committed to this repository.
+
 ## Coordinate reconstruction
 
 The 2020 Figure 4 source workbook contains:
@@ -193,7 +204,17 @@ Required sources include:
 
 See `data/README.md`.
 
-Python dependencies are listed in `requirements.txt`.
+The exact local source corpus used at closeout is recorded in
+`data/SOURCE_MANIFEST.tsv` and can be checked with
+`scripts/verify_source_manifest.py`.
+
+Python dependencies are listed in `requirements.txt`. Exact package versions
+from the closeout environment are recorded in `requirements.lock.txt`; Python
+and external-tool details are recorded in `docs/ENVIRONMENT.md`.
+
+A map distinguishing canonical, historical, and benchmark scripts is available
+in `scripts/README.md`. Tracked current-WGS result artifacts are described in
+`results/current-wgs/README.md`.
 
 External command-line requirements:
 

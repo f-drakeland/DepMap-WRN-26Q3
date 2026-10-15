@@ -16,6 +16,19 @@ Downloaded source datasets used by the analyses include:
 
 These files are intentionally excluded from Git.
 
+Exact filenames, byte sizes, and SHA256 values for the source corpus used at
+scientific closeout are tracked in:
+
+```text
+data/SOURCE_MANIFEST.tsv
+```
+
+Verify a local source directory with:
+
+```bash
+python3 scripts/verify_source_manifest.py
+```
+
 ## reference/
 
 External reference assets include:
