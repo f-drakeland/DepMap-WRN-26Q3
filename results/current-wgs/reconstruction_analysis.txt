@@ -1,0 +1,49 @@
+CURRENT-WGS FPBM RECONSTRUCTION
+========================================================================
+Models: 26
+Input: results/current-wgs/cohort_summary.csv
+
+Published FPBM vs reconstructed current-WGS FPBM
+------------------------------------------------------------------------
+Pearson r:  0.968521   p=5.32159e-16
+Spearman r: 0.973333   p=7.45001e-17
+R^2:        0.938033
+
+Linear calibration
+------------------------------------------------------------------------
+Current = -0.068910 + 1.101744 * Published
+Slope p: 5.32159e-16
+
+Current / published ratio
+------------------------------------------------------------------------
+Mean:   1.091226
+Median: 1.087604
+Min:    1.066891
+Max:    1.225260
+
+Current - published difference
+------------------------------------------------------------------------
+Mean:   0.610629
+Median: 0.575526
+MAE:    0.610629
+
+Largest raw difference
+------------------------------------------------------------------------
+ACH-000928 JHUEM-1
+Published: 7.006003
+Current:   8.584172
+Difference:+1.578169
+Ratio:     1.225260
+
+Largest regression residual
+------------------------------------------------------------------------
+ACH-000928 JHUEM-1
+Residual: +0.934262
+
+Leave-one-out Pearson sensitivity
+------------------------------------------------------------------------
+Range: 0.956644 to 0.996253
+Lowest after removing: ACH-000969 KM12
+Highest after removing: ACH-000928 JHUEM-1
+
+Diagnostics: results/current-wgs/reconstruction_diagnostics.csv
