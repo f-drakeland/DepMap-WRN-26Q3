@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from scipy.stats import pearsonr, spearmanr
+from scipy.stats import pearsonr, spearmanr, t
 
 
 COHORT = Path("results/current-wgs/cohort_summary.csv")
@@ -207,9 +207,27 @@ wrn_resid = residualize(
 )
 
 
-current_partial_r, current_partial_p = pearsonr(
+current_partial_r = pearsonr(
     current_resid,
     wrn_resid,
+)[0]
+
+partial_df = len(data) - 3
+
+current_partial_t = (
+    current_partial_r
+    * np.sqrt(
+        partial_df
+        / (1 - current_partial_r ** 2)
+    )
+)
+
+current_partial_p = (
+    2
+    * t.sf(
+        abs(current_partial_t),
+        df=partial_df,
+    )
 )
 
 current_rank_r, current_rank_p = spearmanr(
@@ -217,9 +235,25 @@ current_rank_r, current_rank_p = spearmanr(
     wrn_resid,
 )
 
-published_partial_r, published_partial_p = pearsonr(
+published_partial_r = pearsonr(
     published_resid,
     wrn_resid,
+)[0]
+
+published_partial_t = (
+    published_partial_r
+    * np.sqrt(
+        partial_df
+        / (1 - published_partial_r ** 2)
+    )
+)
+
+published_partial_p = (
+    2
+    * t.sf(
+        abs(published_partial_t),
+        df=partial_df,
+    )
 )
 
 published_rank_r, published_rank_p = spearmanr(
@@ -350,6 +384,9 @@ emit("-" * 72)
 emit(
     f"Partial Pearson:   {current_partial_r:.6f}   "
     f"p={current_partial_p:.6g}"
+)
+emit(
+    f"Partial Pearson df: {partial_df}"
 )
 emit(
     f"Residual Spearman: {current_rank_r:.6f}   "

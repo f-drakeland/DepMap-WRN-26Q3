@@ -27,7 +27,8 @@ Spearman r: -0.643761   p=0.000387584
 
 After removing MSI score from BOTH
 ------------------------------------------------------------------------
-Partial Pearson:   0.401641   p=0.0419716
+Partial Pearson:   0.401641   p=0.0465807
+Partial Pearson df: 23
 Residual Spearman: 0.301197   p=0.13485
 Permutation p:     0.042980
 
@@ -36,7 +37,7 @@ Published-FPBM reference using same MSI rows
 Raw Pearson:       0.650992
 Raw Spearman:      0.686838
 FPBM-MSI Pearson:  -0.686425
-Partial Pearson:   0.388781   p=0.0496568
+Partial Pearson:   0.388781   p=0.0547667
 Residual Spearman: 0.307350   p=0.126673
 
 Interpretation of residual direction
