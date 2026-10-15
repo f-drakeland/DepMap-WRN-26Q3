@@ -1,0 +1,25 @@
+{
+  "builder_script": "/Users/sql_wick/Desktop/DepMap-WRN-26Q3/scripts/build_current_wgs_coordinates.py",
+  "builder_script_sha256": "219c1c3bb0e1285af609096e703161ab8aad66c578b5c1193324c7ef2c7f07eb",
+  "canonical_bed": "data/derived/coordinates/all_ta_hg38.sorted.bed",
+  "canonical_bed_sha256": "e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b",
+  "coordinate_convention": "source workbook interpreted as 1-based inclusive; BED written as 0-based half-open",
+  "counts": {
+    "broken_hg19": 5400,
+    "broken_hg38": 5377,
+    "broken_unmapped": 23,
+    "canonical_hg38": 66362,
+    "nonbroken_hg19": 61244,
+    "nonbroken_hg38": 60985,
+    "nonbroken_unmapped": 259
+  },
+  "liftover_binary": "tools/liftOver",
+  "liftover_binary_sha256": "bf94ba41ad86c8039f5a6fc1f60824ffa4a1b4f1df288264b5532938579ca60d",
+  "liftover_chain": "data/reference/hg19ToHg38.over.chain.gz",
+  "liftover_chain_sha256": "5c0598e500ceb5a78c73086929e8ef993aec309bcafb595139b53d440b125a1d",
+  "schema_version": 1,
+  "sort_command": "LC_ALL=C sort -V -k1,1 -k2,2n",
+  "source_sheet": "4e",
+  "source_workbook": "data/source/WRN_2020_SourceData_Fig4.xlsx",
+  "source_workbook_sha256": "8b6a5d483810fb02d420b991d515550a2bf28434099639c365957e899244abc7"
+}
