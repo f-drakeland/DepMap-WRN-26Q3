@@ -112,6 +112,29 @@ size, remote-fetch retries, coordinate version, or extractor version. It is
 retained as an unresolved sample/model-specific limitation rather than
 corrected post hoc.
 
+## Key figures
+
+### Published versus reconstructed FPBM
+
+![Published versus reconstructed broken-TA FPBM](figures/current-wgs/01_published_vs_current_fpbm.png)
+
+The reconstructed phenotype closely reproduces the published measurement.
+JHUEM-1 is the primary calibration discrepancy.
+
+### Reconstructed FPBM versus current WRN dependency
+
+![Reconstructed broken-TA FPBM versus current WRN GeneEffect](figures/current-wgs/02_current_fpbm_vs_wrn.png)
+
+Lower broken-TA FPBM tracks stronger WRN dependency in the current DepMap
+screen.
+
+### FPBM after MSI adjustment
+
+![MSI-adjusted FPBM and WRN residual relationship](figures/current-wgs/03_fpbm_beyond_msi.png)
+
+A modest positive MSI-adjusted relationship remains, but the bootstrap
+interval spans zero and KM12 has substantial leverage.
+
 ## Canonical analysis chain
 
 ```bash
