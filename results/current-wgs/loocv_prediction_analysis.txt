@@ -1,0 +1,89 @@
+LOOCV VALUE OF FPBM BEYOND MSI
+========================================================================
+Outcome: current WRN GeneEffect
+Lower RMSE is better.
+Negative RMSE change means FPBM improved prediction.
+
+Paired Wilcoxon and sign-flip p-values compare held-out squared errors. Because LOOCV folds share training observations, these are sensitivity measures rather than independent-fold hypothesis tests.
+
+ALL_26
+========================================================================
+Models: 26
+
+MSI-only
+------------------------------------------------------------------------
+RMSE:          0.761538
+MAE:           0.613525
+Prediction r:  0.546968
+Predictive R2: 0.280207
+
+MSI + reconstructed current-WGS FPBM
+------------------------------------------------------------------------
+RMSE:          0.733343
+RMSE change:   -0.028196
+Percent change: -3.70%
+MAE:           0.597842
+Prediction r:  0.590533
+r change:      +0.043565
+Predictive R2: 0.332520
+Models with lower squared error: 11/26
+Mean MSE improvement: +0.042149
+Wilcoxon p:    0.460228
+Sign-flip p:   0.317627
+
+MSI + published FPBM reference
+------------------------------------------------------------------------
+RMSE:          0.745430
+RMSE change:   -0.016109
+Percent change: -2.12%
+MAE:           0.608593
+Prediction r:  0.574248
+r change:      +0.027281
+Predictive R2: 0.310336
+Models with lower squared error: 12/26
+Mean MSE improvement: +0.024275
+Wilcoxon p:    0.450329
+Sign-flip p:   0.396866
+
+WITHOUT_KM12
+========================================================================
+Models: 25
+
+MSI-only
+------------------------------------------------------------------------
+RMSE:          0.696968
+MAE:           0.566190
+Prediction r:  0.546459
+Predictive R2: 0.278992
+
+MSI + reconstructed current-WGS FPBM
+------------------------------------------------------------------------
+RMSE:          0.714777
+RMSE change:   +0.017809
+Percent change: +2.56%
+MAE:           0.580949
+Prediction r:  0.521358
+r change:      -0.025100
+Predictive R2: 0.241674
+Models with lower squared error: 11/25
+Mean MSE improvement: -0.025142
+Wilcoxon p:    0.634505
+Sign-flip p:   0.725923
+
+MSI + published FPBM reference
+------------------------------------------------------------------------
+RMSE:          0.726702
+RMSE change:   +0.029734
+Percent change: +4.27%
+MAE:           0.590077
+Prediction r:  0.502583
+r change:      -0.043876
+Predictive R2: 0.216161
+Models with lower squared error: 12/25
+Mean MSE improvement: -0.042331
+Wilcoxon p:    0.663962
+Sign-flip p:   0.827302
+
+Permutation seed: 42
+Permutations: 100000
+Predictions: results/current-wgs/loocv_predictions.csv
