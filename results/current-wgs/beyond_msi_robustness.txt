@@ -1,0 +1,48 @@
+CURRENT-WGS FPBM BEYOND MSI: ROBUSTNESS
+========================================================================
+Models: 26
+Bootstrap samples requested: 20000
+Bootstrap seed: 42
+
+Full 26-model result
+------------------------------------------------------------------------
+Partial Pearson:   0.401641   p=0.0465807
+Residual Spearman: 0.301197   p=0.13485
+
+Published-FPBM reference
+------------------------------------------------------------------------
+Partial Pearson:   0.388781   p=0.0547667
+Residual Spearman: 0.307350   p=0.126673
+
+Leave-one-out sensitivity
+------------------------------------------------------------------------
+Partial Pearson range: 0.204948 to 0.499689
+Residual Spearman range: 0.197692 to 0.396923
+Positive partial Pearson after removal: 26/26
+Nominal p < 0.05 after removal: 12/26
+
+Lowest Pearson after removing: ACH-000969 KM12 (0.204948)
+Highest Pearson after removing: ACH-000943 RKO (0.499689)
+Lowest Spearman after removing: ACH-000969 KM12 (0.197692)
+Highest Spearman after removing: ACH-000963 CCK-81 (0.396923)
+
+Most influential removals
+------------------------------------------------------------------------
+ACH-000969 KM12: r_without=0.204948 delta=-0.196693
+ACH-000943 RKO: r_without=0.499689 delta=+0.098049
+ACH-000963 CCK-81: r_without=0.484645 delta=+0.083005
+ACH-000958 SW48: r_without=0.364066 delta=-0.037575
+ACH-000948 23132/87: r_without=0.437773 delta=+0.036132
+ACH-000928 JHUEM-1: r_without=0.365631 delta=-0.036009
+ACH-000985 LS411N: r_without=0.366621 delta=-0.035020
+ACH-000997 HCT-15: r_without=0.367742 delta=-0.033898
+
+Bootstrap partial Pearson
+------------------------------------------------------------------------
+Valid samples: 20000
+Median: 0.403262
+Mean:   0.371294
+95% percentile CI: -0.144672 to 0.719548
+Fraction > 0: 0.933350
+
+Leave-one-out table: results/current-wgs/beyond_msi_leave_one_out.csv
