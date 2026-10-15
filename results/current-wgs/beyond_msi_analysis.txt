@@ -1,0 +1,49 @@
+CURRENT-WGS FPBM BEYOND OFFICIAL MSI SCORE
+========================================================================
+Models: 26
+Cohort: results/current-wgs/cohort_summary.csv
+MSI source: data/source/OmicsGlobalSignatures.csv
+
+MSI row-selection rule
+------------------------------------------------------------------------
+IsDefaultEntryForModel == "Yes"
+MSIScore must be numeric and non-null
+Exactly one selected MSI score per cohort model
+
+Raw reconstructed FPBM vs current WRN
+------------------------------------------------------------------------
+Pearson r:  0.642952   p=0.00039635
+Spearman r: 0.621197   p=0.000707123
+
+Official MSI score vs current WRN
+------------------------------------------------------------------------
+Pearson r:  -0.627780   p=0.000596197
+Spearman r: -0.730598   p=2.25522e-05
+
+Reconstructed FPBM vs official MSI score
+------------------------------------------------------------------------
+Pearson r:  -0.642602   p=0.000400204
+Spearman r: -0.643761   p=0.000387584
+
+After removing MSI score from BOTH
+------------------------------------------------------------------------
+Partial Pearson:   0.401641   p=0.0419716
+Residual Spearman: 0.301197   p=0.13485
+Permutation p:     0.042980
+
+Published-FPBM reference using same MSI rows
+------------------------------------------------------------------------
+Raw Pearson:       0.650992
+Raw Spearman:      0.686838
+FPBM-MSI Pearson:  -0.686425
+Partial Pearson:   0.388781   p=0.0496568
+Residual Spearman: 0.307350   p=0.126673
+
+Interpretation of residual direction
+------------------------------------------------------------------------
+Positive residual correlation means models with more broken-TA coverage than MSI predicts also tend to have less WRN dependency than MSI predicts.
+Equivalently, more broken-TA coverage loss than MSI predicts tends to track with stronger WRN dependency.
+
+Permutation seed: 42
+Permutations: 100000
+Diagnostics: results/current-wgs/beyond_msi_diagnostics.csv
