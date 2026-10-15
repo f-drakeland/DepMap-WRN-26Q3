@@ -1,6 +1,306 @@
 # Analysis Log
 
-## 2026-10-12
+## 2026-10-15 — Scientific closeout
+
+The current-WGS analytical branch is complete at this checkpoint.
+
+### Research question
+
+Can the broken-(TA)n repeat phenotype associated with WRN dependency be
+reconstructed from current public WGS data, and does it explain variation in
+WRN dependency among MSI models beyond conventional MSI measurement?
+
+### Canonical coordinate reconstruction
+
+The 2020 Figure 4 source workbook contains:
+
+- 5,400 broken-TA hg19 loci
+- 61,244 non-broken-TA hg19 loci
+
+UCSC liftOver to hg38 produces:
+
+- 5,377 mapped broken loci
+- 23 unmapped broken loci
+- 60,985 mapped non-broken loci
+- 259 unmapped non-broken loci
+- 66,362 total mapped hg38 loci
+
+The exact historical canonical sort was recovered as:
+
+```text
+LC_ALL=C sort -V -k1,1 -k2,2n
+```
+
+Canonical BED SHA256:
+
+```text
+e0cb25a38b4867c39b2f23f6222dca6cdf253489287ff6ff7ddf56d3369fc24b
+```
+
+The full workbook-to-hg38 coordinate path is reproduced by:
+
+- `scripts/build_current_wgs_coordinates.py`
+
+Tracked provenance:
+
+- `data/derived/coordinates/build_provenance.json`
+
+### Full 26-model current-WGS reconstruction
+
+Public hg38 WGS was available for all 26 MSI models in the current comparison
+cohort.
+
+Current WGS FPBM versus published FPBM:
+
+- Pearson = `0.968521`
+- Spearman = `0.973333`
+- R² = `0.938033`
+
+Leave-one-out Pearson range:
+
+- `0.956644–0.996253`
+
+Conclusion:
+
+The published broken-TA phenotype is strongly reproducible from current
+public WGS.
+
+### Calibration audit
+
+Across all 26 models:
+
+- mean current/published ratio = `1.091226`
+- median ratio = `1.087604`
+
+JHUEM-1 is the largest reconstruction discrepancy:
+
+- published FPBM = `7.006003`
+- current FPBM = `8.584172`
+- ratio = `1.225260`
+
+Without JHUEM-1:
+
+- N = 25
+- Pearson = `0.996253`
+- Spearman = `0.986923`
+- R² = `0.992521`
+- through-origin scale = `1.085697`
+- median ratio = `1.086431`
+- ratio SD = `0.010431`
+- ratio range = `1.066891–1.109085`
+- 24/25 models fall within ±2% of the median scale
+- 25/25 models fall within ±3%
+
+JHUEM-1 had:
+
+- zero fetch retries
+- zero resumed chromosome jobs
+- one public hg38 WGS candidate
+- the same canonical BED SHA as the cohort
+- the same extractor SHA as the systematic cohort
+- an ordinary WGS BAM size
+
+BAM size did not meaningfully correlate with current/published calibration
+ratio.
+
+Conclusion:
+
+The current WGS measurements exhibit an approximately multiplicative ~8.6%
+scale difference relative to the published phenotype across 25/26 models.
+
+JHUEM-1 remains an unresolved model/sample-specific discrepancy. No post hoc
+correction is applied.
+
+### Reconstructed FPBM versus current WRN dependency
+
+Current reconstructed FPBM versus current WRN GeneEffect:
+
+- Pearson = `0.642952`
+- p = `0.00039635`
+- Spearman = `0.621197`
+- p = `0.000707123`
+
+Published FPBM versus the same current WRN values:
+
+- Pearson = `0.650992`
+- Spearman = `0.686838`
+
+Current-FPBM linear fit:
+
+```text
+WRN GeneEffect = -6.453061 + 0.722995 * Current FPBM
+```
+
+R²:
+
+- `0.413388`
+
+Largest WRN residual:
+
+- ACH-000943 RKO
+- residual = `-1.673592`
+
+Conclusion:
+
+The independently reconstructed phenotype preserves essentially the same
+linear relationship with current WRN dependency as the published FPBM
+measurement.
+
+### Current FPBM beyond MSI
+
+Canonical MSI row selection:
+
+- `IsDefaultEntryForModel == "Yes"`
+- MSIScore numeric and non-null
+- exactly one selected MSI score per cohort model
+
+All 26 cohort models resolve uniquely under this rule.
+
+Raw reconstructed FPBM versus current WRN:
+
+- Pearson = `0.642952`
+- Spearman = `0.621197`
+
+Official MSI score versus current WRN:
+
+- Pearson = `-0.627780`
+- Spearman = `-0.730598`
+
+Current FPBM versus MSI score:
+
+- Pearson = `-0.642602`
+- Spearman = `-0.643761`
+
+After removing MSI score from both FPBM and WRN:
+
+- partial Pearson = `0.401641`
+- df = `23`
+- parametric p = `0.0465807`
+- residual permutation p = `0.042980`
+- residual Spearman = `0.301197`
+- p = `0.13485`
+
+Published FPBM using the same canonical MSI rows:
+
+- partial Pearson = `0.388781`
+- p = `0.0547667`
+- residual Spearman = `0.307350`
+- p = `0.126673`
+
+Interpretation:
+
+A modest positive MSI-independent linear association remains, but the
+rank-based residual relationship is weaker and the small cohort requires
+robustness analysis before any incremental claim.
+
+### MSI-adjusted robustness
+
+Leave-one-out partial Pearson:
+
+- range = `0.204948–0.499689`
+- positive after every individual removal = `26/26`
+- nominal p < 0.05 after removal = `12/26`
+
+KM12 is the most influential model:
+
+- partial Pearson without KM12 = `0.204948`
+
+20,000-sample model-level bootstrap:
+
+- median = `0.403262`
+- mean = `0.371294`
+- 95% percentile interval = `-0.144672–0.719548`
+- fraction above zero = `0.933350`
+
+Conclusion:
+
+The positive direction is not created by one model, but the effect magnitude
+is uncertain and KM12 has substantial leverage. The bootstrap interval spans
+zero, so the evidence does not support a strong incremental claim.
+
+### LOOCV predictive value beyond MSI
+
+All 26 models, MSI only:
+
+- RMSE = `0.761538`
+- MAE = `0.613525`
+- prediction r = `0.546968`
+- predictive R² = `0.280207`
+
+MSI + reconstructed current FPBM:
+
+- RMSE = `0.733343`
+- RMSE change = `-3.70%`
+- MAE = `0.597842`
+- prediction r = `0.590533`
+- predictive R² = `0.332520`
+- lower squared error = `11/26`
+- Wilcoxon sensitivity p = `0.460228`
+- sign-flip sensitivity p = `0.317627`
+
+Without KM12, MSI only:
+
+- RMSE = `0.696968`
+- prediction r = `0.546459`
+
+Without KM12, MSI + reconstructed FPBM:
+
+- RMSE = `0.714777`
+- RMSE change = `+2.56%` worse
+- prediction r = `0.521358`
+
+The published FPBM reference behaves similarly and also worsens prediction
+without KM12.
+
+Conclusion:
+
+The full cohort shows a modest descriptive LOOCV improvement from adding FPBM
+to MSI, but that improvement is not robust and reverses after removal of
+KM12.
+
+Current evidence does not support robust incremental out-of-sample prediction
+beyond MSI.
+
+### Scientific conclusion
+
+At this checkpoint:
+
+1. The published broken-TA phenotype is strongly reproducible from current
+   public WGS.
+2. The reconstructed phenotype retains its expected association with current
+   WRN dependency.
+3. A modest MSI-independent association remains, but its magnitude is
+   uncertain.
+4. Robust incremental predictive value beyond MSI is not demonstrated.
+5. JHUEM-1 is the main unresolved measurement discrepancy.
+
+No additional association testing is planned at this checkpoint. Remaining
+work is presentation, figures, and reproducibility/documentation polish.
+
+### Canonical current-WGS scripts
+
+- `scripts/build_current_wgs_coordinates.py`
+- `scripts/build_current_wgs_manifest.py`
+- `scripts/extract_current_wgs_ta.py`
+- `scripts/run_current_wgs_cohort.py`
+- `scripts/analyze_current_wgs_reconstruction.py`
+- `scripts/analyze_current_wgs_wrn_association.py`
+- `scripts/analyze_current_wgs_beyond_msi.py`
+- `scripts/analyze_current_wgs_beyond_msi_robustness.py`
+- `scripts/analyze_current_wgs_loocv_value.py`
+- `scripts/audit_current_wgs_calibration.py`
+
+---
+
+## 2026-10-12 — Earlier project checkpoint
+
+> Historical checkpoint. The material below records the state of the project
+> before the full 26-model current-WGS reconstruction and canonical MSI row
+> selection were completed. Where values differ, the 2026-10-15 results above
+> supersede them. In particular, the earlier published-FPBM beyond-MSI scripts
+> used a fallback MSI-row selection path and are not the canonical current
+> analysis.
+
 
 Research workflow reconstructed from exploratory analysis.
 
